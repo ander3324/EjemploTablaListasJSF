@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Nuevo Libro</title>
+    </h:head>
+    <h:body>
+
+        <f:view>
+            <h:form>
+                <fieldset>
+                    <legend>Completar los campos: </legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ISBN: " for="isbn"/>
+                        <h:inputText id="isbn" value="#{libC.libro.isbn}"/> 
+                        <h:outputLabel value="TITULO: " for="tit"/>
+                        <h:inputText id="tit" value="#{libC.libro.titulo}"/>
+                        <h:outputLabel value="AUTOR: " for="aut"/>
+                        <h:inputText id="aut" value="#{libC.libro.autor}"/>
+                        <h:outputLabel value="FECHA: " for="fec"/>
+                        <h:inputText  p:type="date" id="fec" value="#{libC.libro.fecha}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>  
+
+                        </h:inputText>
+                    </h:panelGrid>
+                </fieldset>
+                <br/>
+
+                <h:commandButton value="Guardar" action="#{libC.doGuardar()}"/> &nbsp;
+                <h:commandButton value="Cancelar" action="#{libC.doVolver()}"/>
+
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
