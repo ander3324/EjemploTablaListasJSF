@@ -48,7 +48,29 @@ public class LibrosController {
         lista.add(libro);
     }
     
-    //Metodos que redireccionan las páginas web:
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
+    public LinkedList<Libro> getLista() {
+
+        return lista;
+    }
+
+    public void setLista(LinkedList<Libro> lista) {
+        this.lista = lista;
+    }
+    
+    /*
+    *
+    * Metodos que redireccionan las páginas web:
+    *
+    */
+    
     public String doVolver(){
         return "index";
     }
@@ -68,21 +90,14 @@ public class LibrosController {
         getLista().clear();
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
-    public LinkedList<Libro> getLista() {
-
-        return lista;
-    }
-
-    public void setLista(LinkedList<Libro> lista) {
-        this.lista = lista;
+    public String doBorrar(int id){
+        
+        for(Libro n: lista){
+            if(n.getIsbn() == id)
+                lista.remove(n);
+        }
+        libro = new Libro();
+        return "index";
     }
 
 }
