@@ -27,6 +27,9 @@ public class LibrosController {
     private Libro libro;
     private LinkedList<Libro> lista;
 
+    //Variables utiles:
+    char operacion = '\0';   //A-ALta M-Modificacion
+
     /**
      * Creates a new instance of LibrosController
      */
@@ -36,18 +39,19 @@ public class LibrosController {
     }
 
     void cargarListaLibros() {
-        
+
         lista = new LinkedList<>();
-        
-        //Cargar el libro por defecto...
+
+        //Cargar los libros por defecto...
+        //COnstructor sin parametros...
         libro = new Libro(1234, "THE JAVA EE TUTORIAL", "ORACLE CORP.", Date.valueOf("2015-05-12"));
         lista.add(libro);
-        
+
         //Usar constructor con parámetros...
         libro = new Libro(2334, "El Puente", "David Remnick", Date.valueOf("2010-02-22"));
         lista.add(libro);
     }
-    
+
     public Libro getLibro() {
         return libro;
     }
@@ -64,37 +68,58 @@ public class LibrosController {
     public void setLista(LinkedList<Libro> lista) {
         this.lista = lista;
     }
-    
+
     /*
-    *
-    * Metodos que redireccionan las páginas web:
-    *
-    */
-    
-    public String doVolver(){
+     *
+     * Metodos que redireccionan las páginas web:
+     *
+     */
+    public String doVolver() {
         return "index";
     }
-    
-    public String doNuevo(){
+
+    public String doNuevo() {
         //Crear una nueva instancia de libro:
         libro = new Libro();
+        operacion = 'A';
         return "nuevo";
     }
-    
-    public String doGuardar(){
-        lista.add(libro);
-        return "index";
+
+    public String doGuardar() {
+        if (operacion == 'A') {
+            lista.add(libro);
+            return "index";
+        }else{
+            return editar();
+        }
     }
 
     public void borrarLista() {
         getLista().clear();
     }
 
-    public String doBorrar(int id){
-        
-        for(Libro n: lista){
-            if(n.getIsbn() == id)
+    public String doBorrar(int id) {
+
+        for (Libro n : lista) {
+            if (n.getIsbn() == id) {
                 lista.remove(n);
+            }
+        }
+        libro = new Libro();
+        return "index";
+    }
+
+    public String doModificar(Libro l) {
+        libro = l;
+        operacion = 'M';
+        return "nuevo";
+    }
+
+    public String editar() {
+        for (Libro l : lista) {
+            if (l.getIsbn() == libro.getIsbn()) {
+                l = libro;
+            }
         }
         libro = new Libro();
         return "index";
